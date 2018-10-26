@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/shape_g"
+    android:padding="10dp">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:padding="10dp">
+
+        <View
+            android:id="@+id/v1"
+            android:layout_width="100dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="8dp"
+            android:background="#fff"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/volumeTitle"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="Volume"
+            android:textAlignment="center"
+            android:textColor="#fff"
+            app:layout_constraintBottom_toBottomOf="@+id/v1"
+            app:layout_constraintEnd_toStartOf="@+id/v1"
+            app:layout_constraintTop_toTopOf="@+id/v1" />
+
+        <View
+            android:id="@+id/v2"
+            android:layout_width="100dp"
+            android:layout_height="1dp"
+            android:layout_marginEnd="8dp"
+            android:background="#fff"
+            app:layout_constraintEnd_toStartOf="@+id/volumeTitle"
+            app:layout_constraintTop_toTopOf="@+id/v1" />
+
+        <ImageView
+            android:id="@+id/muteBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:padding="5dp"
+            app:layout_constraintStart_toStartOf="@+id/v2"
+            app:layout_constraintTop_toBottomOf="@+id/v2"
+            app:srcCompat="@drawable/ic_mute" />
+
+        <ImageView
+            android:id="@+id/volumeMaxBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:padding="5dp"
+            app:layout_constraintEnd_toEndOf="@+id/v1"
+            app:layout_constraintTop_toBottomOf="@+id/v1"
+            app:srcCompat="@drawable/ic_volume" />
+
+        <avd.nk.com.apsaravideodemo.widget.view.ProgressView
+            android:id="@+id/volumeProgressView"
+            android:layout_width="0dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/muteBtn"
+            app:layout_constraintEnd_toStartOf="@+id/volumeMaxBtn"
+            app:layout_constraintStart_toEndOf="@+id/muteBtn"
+            app:layout_constraintTop_toTopOf="@+id/muteBtn" />
+
+        <View
+            android:id="@+id/v3"
+            android:layout_width="100dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="8dp"
+            android:background="#fff"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/volumeMaxBtn" />
+
+        <TextView
+            android:id="@+id/brightnessTitle"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="Brightness"
+            android:textAlignment="center"
+            android:textColor="#fff"
+            app:layout_constraintBottom_toBottomOf="@+id/v3"
+            app:layout_constraintEnd_toStartOf="@+id/v3"
+            app:layout_constraintTop_toTopOf="@+id/v3" />
+
+        <View
+            android:id="@+id/v4"
+            android:layout_width="100dp"
+            android:layout_height="1dp"
+            android:layout_marginEnd="8dp"
+            android:background="#fff"
+            app:layout_constraintBottom_toBottomOf="@+id/v3"
+            app:layout_constraintEnd_toStartOf="@+id/brightnessTitle"
+            app:layout_constraintTop_toTopOf="@+id/v3" />
+
+        <ImageView
+            android:id="@+id/brightnessMinBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:padding="5dp"
+            app:layout_constraintStart_toStartOf="@+id/v4"
+            app:layout_constraintTop_toBottomOf="@+id/v4"
+            app:srcCompat="@drawable/ic_brightness_min" />
+
+        <ImageView
+            android:id="@+id/brightnessMaxBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:padding="5dp"
+            app:layout_constraintEnd_toEndOf="@+id/v3"
+            app:layout_constraintTop_toBottomOf="@+id/v3"
+            app:srcCompat="@drawable/ic_brightness_max" />
+
+        <avd.nk.com.apsaravideodemo.widget.view.ProgressView
+            android:id="@+id/brightnessProgressView"
+            android:layout_width="0dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/brightnessMinBtn"
+            app:layout_constraintEnd_toStartOf="@+id/brightnessMaxBtn"
+            app:layout_constraintStart_toEndOf="@+id/brightnessMinBtn"
+            app:layout_constraintTop_toTopOf="@+id/brightnessMinBtn" />
+
+        <View
+            android:id="@+id/v5"
+            android:layout_width="100dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="8dp"
+            android:background="#fff"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/brightnessMaxBtn" />
+
+        <TextView
+            android:id="@+id/playModeTitle"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="Play Mode"
+            android:textAlignment="center"
+            android:textColor="#fff"
+            app:layout_constraintBottom_toBottomOf="@+id/v5"
+            app:layout_constraintEnd_toStartOf="@+id/v5"
+            app:layout_constraintTop_toTopOf="@+id/v5" />
+
+        <View
+            android:id="@+id/v6"
+            android:layout_width="100dp"
+            android:layout_height="1dp"
+            android:layout_marginEnd="8dp"
+            android:background="#fff"
+            app:layout_constraintBottom_toBottomOf="@+id/v5"
+            app:layout_constraintEnd_toStartOf="@+id/playModeTitle"
+            app:layout_constraintTop_toTopOf="@+id/v5" />
+
+        <TextView
+            android:id="@+id/modeFit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape_play_mode_ft"
+            android:text="FIT"
+            android:textColor="#fff"
+            app:layout_constraintStart_toStartOf="@+id/v6"
+            app:layout_constraintTop_toBottomOf="@+id/playModeTitle" />
+
+        <TextView
+            android:id="@+id/modeCrop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape_play_mode_bg"
+
+
+            android:text="CROP"
+            android:textColor="#fff"
+            app:layout_constraintStart_toEndOf="@+id/modeFit"
+            app:layout_constraintTop_toBottomOf="@+id/playModeTitle" />
+
+        <View
+            android:id="@+id/v7"
+            android:layout_width="100dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="8dp"
+            android:background="#fff"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/modeCrop" />
+
+        <TextView
+            android:id="@+id/SpeedTitle"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="Speed Mode"
+            android:textAlignment="center"
+            android:textColor="#fff"
+            app:layout_constraintBottom_toBottomOf="@+id/v7"
+            app:layout_constraintEnd_toStartOf="@+id/v7"
+            app:layout_constraintTop_toTopOf="@+id/v7" />
+
+        <View
+            android:id="@+id/v8"
+            android:layout_width="100dp"
+            android:layout_height="1dp"
+            android:layout_marginEnd="8dp"
+            android:background="#fff"
+            app:layout_constraintBottom_toBottomOf="@+id/v7"
+            app:layout_constraintEnd_toStartOf="@+id/SpeedTitle"
+            app:layout_constraintTop_toTopOf="@+id/v7" />
+
+        <TextView
+            android:id="@+id/speed100"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape_play_mode_ft"
+            android:text="1.0X"
+            android:textColor="#fff"
+            app:layout_constraintStart_toStartOf="@+id/v8"
+            app:layout_constraintTop_toBottomOf="@+id/SpeedTitle" />
+
+        <TextView
+            android:id="@+id/speed125"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape_play_mode_bg"
+            android:text="1.25X"
+            android:textColor="#fff"
+            app:layout_constraintStart_toEndOf="@+id/speed100"
+            app:layout_constraintTop_toBottomOf="@+id/SpeedTitle" />
+
+        <TextView
+            android:id="@+id/speed150"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape_play_mode_bg"
+            android:text="1.5X"
+            android:textColor="#fff"
+            app:layout_constraintStart_toEndOf="@+id/speed125"
+            app:layout_constraintTop_toBottomOf="@+id/SpeedTitle" />
+
+        <TextView
+            android:id="@+id/speed200"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape_play_mode_bg"
+            android:text="2.0X"
+            android:textColor="#fff"
+            app:layout_constraintStart_toEndOf="@+id/speed150"
+            app:layout_constraintTop_toBottomOf="@+id/SpeedTitle" />
+
+        <View
+            android:id="@+id/v9"
+            android:layout_width="100dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="8dp"
+            android:background="#fff"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/speed200" />
+
+        <TextView
+            android:id="@+id/OtherTitle"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="Other"
+            android:textAlignment="center"
+            android:textColor="#fff"
+            app:layout_constraintBottom_toBottomOf="@+id/v9"
+            app:layout_constraintEnd_toStartOf="@+id/v9"
+            app:layout_constraintTop_toTopOf="@+id/v9" />
+
+        <View
+            android:id="@+id/v10"
+            android:layout_width="100dp"
+            android:layout_height="1dp"
+            android:layout_marginEnd="8dp"
+            android:background="#fff"
+            app:layout_constraintBottom_toBottomOf="@+id/v9"
+            app:layout_constraintEnd_toStartOf="@+id/OtherTitle"
+            app:layout_constraintTop_toTopOf="@+id/v9" />
+
+        <ImageView
+            android:id="@+id/downloadBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:padding="5dp"
+            app:layout_constraintStart_toStartOf="@+id/v10"
+            app:layout_constraintTop_toBottomOf="@+id/OtherTitle"
+            app:srcCompat="@drawable/ic_download" />
+
+        <TextView
+            android:id="@+id/downloadBtnTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="download"
+            android:textColor="#fff"
+            app:layout_constraintEnd_toEndOf="@+id/downloadBtn"
+            app:layout_constraintStart_toStartOf="@+id/downloadBtn"
+            app:layout_constraintTop_toBottomOf="@+id/downloadBtn" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v4.widget.NestedScrollView>
