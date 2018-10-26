@@ -10,9 +10,11 @@
 
 package avd.nk.com.apsaravideodemo.widget.dialog;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.View;
@@ -27,10 +29,12 @@ import android.view.WindowManager;
 
 class DialogCtrl {
 
-    private final NDialog dialog;
+    private static final String TAG = DialogCtrl.class.getSimpleName();
+
+    private final UniversalDialog dialog;
     private final Window window;
 
-    DialogCtrl(NDialog dialog, Window window) {
+    DialogCtrl(UniversalDialog dialog, Window window) {
         this.dialog = dialog;
         this.window = window;
     }
@@ -80,7 +84,23 @@ class DialogCtrl {
                 throw new IllegalArgumentException("nullContentViewException.");
             }
 
-            dialogCtrl.getDialog().setContentView(dialogHelper.getContentView());
+            View view = dialogHelper.getContentView();
+            if (view != null) {
+                if (dialogCtrl != null) {
+                    Dialog d = dialogCtrl.getDialog();
+                    if (d != null) {
+
+                        dialogCtrl.getDialog().setContentView(view);
+                    } else {
+                        Log.i(TAG, "Dialog is null");
+                    }
+                } else {
+                    Log.i(TAG, "dialogCtrl is null");
+                }
+                Log.i(TAG, "dialogHelper.getContentView = " + view.getId());
+            } else {
+                Log.i(TAG, "dialogHelper.getContentView is null");
+            }
 
             for (int i = 0; i < texts.size(); i++) {
                 dialogHelper.setText(texts.keyAt(i), texts.valueAt(i));
@@ -97,33 +117,36 @@ class DialogCtrl {
             DisplayMetrics metrics = new DisplayMetrics();
             window.getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
-            if(gravity != Gravity.NO_GRAVITY){
+            if (gravity != Gravity.NO_GRAVITY) {
                 layoutParams.gravity = gravity;
             }
 
-            if(widthPercent != 0f){
+            if (widthPercent != 0f) {
                 layoutParams.width = (int) (metrics.widthPixels * widthPercent);
+                //Log.i(TAG, "widthPercent = " + widthPercent);
+                //Log.i(TAG, "metrics.widthPixels = " + metrics.widthPixels);
+                //Log.i(TAG, "layoutParams.width = " + layoutParams.width);
             }
 
-            if(heightPercent != 0f){
+            if (heightPercent != 0f) {
                 layoutParams.height = (int) (metrics.heightPixels * heightPercent);
             }
 
-            if(isFullScreen){
+            if (isFullScreen) {
                 layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
                 layoutParams.height = WindowManager.LayoutParams.MATCH_PARENT;
             }
 
             window.setAttributes(layoutParams);
 
-            if(animationsResId != 0){
+            if (animationsResId != 0) {
                 window.setWindowAnimations(animationsResId);
             }
 
         }
     }
 
-    NDialog getDialog() {
+    UniversalDialog getDialog() {
         return dialog;
     }
 

@@ -11,6 +11,7 @@
 package avd.nk.com.apsaravideodemo.widget.dialog;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -22,11 +23,11 @@ import android.widget.TextView;
  */
 
 class DialogHelper {
-
+    private static final String TAG = DialogHelper.class.getSimpleName();
     private View contentView;
 
     DialogHelper(Context context, int layoutResId) {
-        contentView = LayoutInflater.from(context).inflate(layoutResId, null);
+        contentView = LayoutInflater.from(context).inflate(layoutResId, null, false);
     }
 
     DialogHelper(Context context, View contentView) {
@@ -41,6 +42,9 @@ class DialogHelper {
         View view = null;
         if (contentView != null) {
             view = contentView.findViewById(viewId);
+            Log.i(TAG, "content view is " + view.getId());
+        }else {
+            Log.i(TAG, "content view null ");
         }
         return view;
     }
