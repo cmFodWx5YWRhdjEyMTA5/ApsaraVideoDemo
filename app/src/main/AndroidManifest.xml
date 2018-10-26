@@ -45,6 +45,7 @@
             android:screenOrientation="portrait"/>
 
         <activity android:name=".PushActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"/>
     </application>

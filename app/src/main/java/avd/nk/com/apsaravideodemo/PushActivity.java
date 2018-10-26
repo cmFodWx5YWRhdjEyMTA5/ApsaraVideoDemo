@@ -26,6 +26,7 @@ import avd.nk.com.apsaravideodemo.listeners.pusher.LivePushBGMListener;
 import avd.nk.com.apsaravideodemo.listeners.pusher.LivePushErrorListener;
 import avd.nk.com.apsaravideodemo.listeners.pusher.LivePushInfoListener;
 import avd.nk.com.apsaravideodemo.listeners.pusher.LivePushNetworkListener;
+import avd.nk.com.apsaravideodemo.widget.LivePlayerView;
 
 public class PushActivity extends AppCompatActivity {
     public static final int START_PREVIEW = 0x01;
@@ -45,6 +46,7 @@ public class PushActivity extends AppCompatActivity {
     private AlivcLivePushConfig mAliVCLivePushConfig;
     private SurfaceView mPreviewArea;
     private OrientationEventListener orientationEventListener;
+    private LivePlayerView livePlayerView;
     private Handler handler = new Handler(Looper.getMainLooper()) {
         @Override
         public void handleMessage(Message msg) {
@@ -93,7 +95,7 @@ public class PushActivity extends AppCompatActivity {
             Log.e(TAG, "error! got an empty push path!");
         }
 
-
+        livePlayerView = findViewById(R.id.livePlayerVew);
         //initView();
         //initPushConfig();
         //initPusher();
@@ -136,13 +138,13 @@ public class PushActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (mAliVCLivePusher != null) {
+        /*if (mAliVCLivePusher != null) {
             try{
                 mAliVCLivePusher.resume();
             }catch (Exception e) {
                 e.printStackTrace();
             }
-        }
+        }*/
         /*if (orientationEventListener.canDetectOrientation()) {
             Log.v(TAG, "Can detect orientation");
             orientationEventListener.enable();

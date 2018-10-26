@@ -20,6 +20,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
+import avd.nk.com.apsaravideodemo.entity.GlideApp;
 import avd.nk.com.apsaravideodemo.widget.PlayerView;
 
 public class PlayActivity extends AppCompatActivity {
