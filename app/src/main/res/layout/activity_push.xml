@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <SurfaceView
+    <!--<SurfaceView
         android:id="@+id/recView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -74,6 +74,10 @@
         android:layout_marginBottom="8dp"
         android:text="back"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />-->
+
+    <avd.nk.com.apsaravideodemo.widget.LivePlayerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </android.support.constraint.ConstraintLayout>

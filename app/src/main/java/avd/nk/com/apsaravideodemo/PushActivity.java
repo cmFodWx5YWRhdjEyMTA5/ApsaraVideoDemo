@@ -92,9 +92,11 @@ public class PushActivity extends AppCompatActivity {
         if (pushPath == null) {
             Log.e(TAG, "error! got an empty push path!");
         }
-        initView();
-        initPushConfig();
-        initPusher();
+
+
+        //initView();
+        //initPushConfig();
+        //initPusher();
 
         /*orientationEventListener = new OrientationEventListener(this, SensorManager.SENSOR_DELAY_NORMAL) {
             @Override
@@ -182,7 +184,7 @@ public class PushActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        mPreviewArea = findViewById(R.id.recView);
+        /*mPreviewArea = findViewById(R.id.recView);
         mPreviewArea.getHolder().addCallback(new SurfaceHolder.Callback() {
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
@@ -240,7 +242,7 @@ public class PushActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mAliVCLivePusher.switchCamera();
             }
-        });
+        });*/
     }
 
     private void initPushConfig() {

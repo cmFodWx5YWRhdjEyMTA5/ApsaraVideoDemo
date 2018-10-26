@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2018.
+  ~ It is only used in the commercial software development that the author participates in,
+  ~ or in other non-commercial research studies.
+  ~ If it is found that the code is used in the commercial software development without the consent of the author,
+  ~ or the copyright issue will be investigated.
+  ~ the author reserves all the right of interpretation of the code.
+  ~ Author : Nikou Karter
+  -->
+
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <translate
+        android:duration="400"
+        android:fromXDelta="0"
+        android:fromYDelta="0"
+        android:toXDelta="0"
+        android:toYDelta="2000" />
+</set>
