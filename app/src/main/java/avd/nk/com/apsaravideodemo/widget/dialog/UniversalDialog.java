@@ -18,8 +18,12 @@ import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.util.Log;
-import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Objects;
 
@@ -37,6 +41,7 @@ public class UniversalDialog extends Dialog {
 
     private View contentView;
     private DialogCtrl dialogCtrl;
+    private boolean isAutoHideSoftKeyboard = false;
 
     UniversalDialog(@NonNull Context context) {
         this(context, 0);
@@ -45,6 +50,23 @@ public class UniversalDialog extends Dialog {
     private UniversalDialog(@NonNull Context context, int themeResId) {
         super(context, themeResId);
         dialogCtrl = new DialogCtrl(this, getWindow());
+        setCanceledOnTouchOutside(true);
+    }
+
+    @Override
+    public void dismiss() {
+        if(isAutoHideSoftKeyboard){
+            View view = getCurrentFocus();
+            if (view != null) {
+                InputMethodManager mInputMethodManager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                mInputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
+            }
+        }
+        super.dismiss();
+    }
+
+    public void isHideSoftKeyboardOnDismiss(boolean hide){
+        isAutoHideSoftKeyboard = hide;
     }
 
     public View getViewById(int viewId) {

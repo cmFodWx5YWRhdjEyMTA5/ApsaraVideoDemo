@@ -1,4 +1,4 @@
-package avd.nk.com.apsaravideodemo.widget;
+package avd.nk.com.apsaravideodemo.widget.view;
 
 import android.content.Context;
 import android.support.constraint.ConstraintLayout;
@@ -6,8 +6,6 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
-import android.widget.RelativeLayout;
 
 import com.alivc.live.pusher.AlivcAudioAACProfileEnum;
 import com.alivc.live.pusher.AlivcFpsEnum;
@@ -19,37 +17,57 @@ import com.alivc.live.pusher.AlivcPreviewOrientationEnum;
 import com.alivc.live.pusher.AlivcQualityModeEnum;
 
 import avd.nk.com.apsaravideodemo.R;
-import avd.nk.com.apsaravideodemo.entity.Message;
 import avd.nk.com.apsaravideodemo.listeners.pusher.LivePushBGMListener;
 import avd.nk.com.apsaravideodemo.listeners.pusher.LivePushErrorListener;
 import avd.nk.com.apsaravideodemo.listeners.pusher.LivePushNetworkListener;
-import avd.nk.com.apsaravideodemo.widget.view.BaseLiveVideoView;
-import avd.nk.com.apsaravideodemo.widget.view.LiveVideoBottomPanel;
-import avd.nk.com.apsaravideodemo.widget.view.MessageView;
 
-public class LivePlayerView extends BaseLiveVideoView {
-    private MessageView messageView;
-    private LiveVideoBottomPanel liveVideoBottomPanel;
+public class BaseLiveVideoView extends ConstraintLayout {
+    protected SurfaceView surfaceView;
+    protected AlivcLivePusher aliVCLivePusher;
+    protected AlivcLivePushConfig aliVCLivePushConfig;
 
-    private AlivcLivePusher aliVCLivePusher;
-    private AlivcLivePushConfig aliVCLivePushConfig;
-
-    public LivePlayerView(Context context) {
+    public BaseLiveVideoView(Context context) {
         this(context, null);
     }
 
-    public LivePlayerView(Context context, AttributeSet attrs) {
+    public BaseLiveVideoView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public LivePlayerView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public BaseLiveVideoView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initView();
-        //initPushConfig();
-        //initPusher();
+        initPushConfig();
+        initPusher();
     }
 
-    /*private void initPusher() {
+    private void initView() {
+        LayoutInflater.from(getContext()).inflate(R.layout.view_base_live, this, true);
+
+        initSurfaceView();
+    }
+
+    private void initSurfaceView() {
+        surfaceView = findViewById(R.id.surfaceView);
+        surfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
+            @Override
+            public void surfaceCreated(SurfaceHolder surfaceHolder) {
+
+            }
+
+            @Override
+            public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
+
+            }
+        });
+    }
+
+    private void initPusher() {
         aliVCLivePusher = new AlivcLivePusher();
         aliVCLivePusher.init(getContext(), aliVCLivePushConfig);
 
@@ -133,40 +151,5 @@ public class LivePlayerView extends BaseLiveVideoView {
             aliVCLivePushConfig.setMinVideoBitrate(minBitrate);
             aliVCLivePushConfig.setInitialVideoBitrate(initBitrate);
         }
-    }*/
-
-    public void preview() {
-        try {
-            aliVCLivePusher.startPreview(surfaceView);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
-
-    private void initView() {
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.view_live_push, this, false);
-        ConstraintLayout.LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-        view.setLayoutParams(layoutParams);
-
-        messageView = findViewById(R.id.messageView);
-
-        liveVideoBottomPanel = findViewById(R.id.liveVideoBottomPanel);
-        liveVideoBottomPanel.setLiveVideoBottomPanelActionCallback(new LiveVideoBottomPanel.LiveVideoBottomPanelActionCallback() {
-            @Override
-            public void onMessageClick(String msg) {
-                messageView.newMessage(new Message("user live", msg));
-            }
-
-            @Override
-            public void onPushClick() {
-                preview();
-            }
-
-            @Override
-            public void onSwitchCamera() {
-                aliVCLivePusher.switchCamera();
-            }
-        });
-    }
-
 }

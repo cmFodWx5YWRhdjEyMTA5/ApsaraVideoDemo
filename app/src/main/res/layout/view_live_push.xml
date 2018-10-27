@@ -13,51 +13,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/activityTitle"
-        android:layout_width="wrap_content"
+    <avd.nk.com.apsaravideodemo.widget.view.LiveVideoTopPanel
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:padding="5dp"
-        android:text="Activity Title"
-        android:textColor="#fff"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/userIconView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activityTitle" />
-
-    <android.support.v7.widget.RecyclerView
+    <avd.nk.com.apsaravideodemo.widget.view.MessageView
         android:id="@+id/messageView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_margin="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/liveVideoBottomPanel"
         app:layout_constraintEnd_toStartOf="@+id/vGuideLine"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/hGuideline" />
 
-    <TextView
-        android:id="@+id/sendBtn"
-        android:layout_width="wrap_content"
+    <avd.nk.com.apsaravideodemo.widget.view.LiveVideoBottomPanel
+        android:id="@+id/liveVideoBottomPanel"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:text="SEND MSG"
-        android:padding="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/hGuideline" />
+        app:layout_constraintBottom_toBottomOf="@+id/pusherView"
+        app:layout_constraintEnd_toEndOf="@+id/pusherView"
+        app:layout_constraintStart_toStartOf="@+id/pusherView" />
 
     <android.support.constraint.Guideline
         android:id="@+id/vGuideLine"
@@ -71,6 +50,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.6" />
+        app:layout_constraintGuide_percent="0.7" />
 
 </android.support.constraint.ConstraintLayout>
