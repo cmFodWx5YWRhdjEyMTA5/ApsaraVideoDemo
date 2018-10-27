@@ -4,40 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <SurfaceView
-        android:id="@+id/pusherView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <avd.nk.com.apsaravideodemo.widget.view.LiveVideoTopPanel
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <avd.nk.com.apsaravideodemo.widget.view.MessageView
-        android:id="@+id/messageView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_margin="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/liveVideoBottomPanel"
-        app:layout_constraintEnd_toStartOf="@+id/vGuideLine"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/hGuideline" />
-
-    <avd.nk.com.apsaravideodemo.widget.view.LiveVideoBottomPanel
-        android:id="@+id/liveVideoBottomPanel"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/pusherView"
-        app:layout_constraintEnd_toEndOf="@+id/pusherView"
-        app:layout_constraintStart_toStartOf="@+id/pusherView" />
-
     <android.support.constraint.Guideline
         android:id="@+id/vGuideLine"
         android:layout_width="wrap_content"
@@ -51,5 +17,31 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.7" />
+
+    <avd.nk.com.apsaravideodemo.widget.view.LiveVideoTopPanel
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <avd.nk.com.apsaravideodemo.widget.view.LiveVideoBottomPanel
+        android:id="@+id/liveVideoBottomPanel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <avd.nk.com.apsaravideodemo.widget.view.MessageView
+        android:id="@+id/messageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/liveVideoBottomPanel"
+        app:layout_constraintEnd_toStartOf="@+id/vGuideLine"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/hGuideline" />
 
 </android.support.constraint.ConstraintLayout>

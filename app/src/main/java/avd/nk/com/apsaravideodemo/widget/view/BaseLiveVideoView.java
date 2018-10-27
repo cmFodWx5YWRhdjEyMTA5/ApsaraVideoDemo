@@ -3,25 +3,28 @@ package avd.nk.com.apsaravideodemo.widget.view;
 import android.content.Context;
 import android.support.constraint.ConstraintLayout;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.alivc.live.pusher.AlivcAudioAACProfileEnum;
 import com.alivc.live.pusher.AlivcFpsEnum;
+import com.alivc.live.pusher.AlivcLivePushBGMListener;
 import com.alivc.live.pusher.AlivcLivePushConfig;
+import com.alivc.live.pusher.AlivcLivePushError;
+import com.alivc.live.pusher.AlivcLivePushErrorListener;
 import com.alivc.live.pusher.AlivcLivePushInfoListener;
+import com.alivc.live.pusher.AlivcLivePushNetworkListener;
 import com.alivc.live.pusher.AlivcLivePusher;
 import com.alivc.live.pusher.AlivcPreviewDisplayMode;
 import com.alivc.live.pusher.AlivcPreviewOrientationEnum;
 import com.alivc.live.pusher.AlivcQualityModeEnum;
 
 import avd.nk.com.apsaravideodemo.R;
-import avd.nk.com.apsaravideodemo.listeners.pusher.LivePushBGMListener;
-import avd.nk.com.apsaravideodemo.listeners.pusher.LivePushErrorListener;
-import avd.nk.com.apsaravideodemo.listeners.pusher.LivePushNetworkListener;
 
 public class BaseLiveVideoView extends ConstraintLayout {
+    private static final String TAG = BaseLiveVideoView.class.getSimpleName();
     protected SurfaceView surfaceView;
     protected AlivcLivePusher aliVCLivePusher;
     protected AlivcLivePushConfig aliVCLivePushConfig;
@@ -43,7 +46,6 @@ public class BaseLiveVideoView extends ConstraintLayout {
 
     private void initView() {
         LayoutInflater.from(getContext()).inflate(R.layout.view_base_live, this, true);
-
         initSurfaceView();
     }
 
@@ -69,11 +71,110 @@ public class BaseLiveVideoView extends ConstraintLayout {
 
     private void initPusher() {
         aliVCLivePusher = new AlivcLivePusher();
+        Log.i(TAG, "aliVCLivePusher init.");
         aliVCLivePusher.init(getContext(), aliVCLivePushConfig);
 
-        aliVCLivePusher.setLivePushErrorListener(new LivePushErrorListener());
-        aliVCLivePusher.setLivePushNetworkListener(new LivePushNetworkListener());
-        aliVCLivePusher.setLivePushBGMListener(new LivePushBGMListener());
+        aliVCLivePusher.setLivePushErrorListener(new AlivcLivePushErrorListener() {
+            @Override
+            public void onSystemError(AlivcLivePusher alivcLivePusher, AlivcLivePushError alivcLivePushError) {
+
+            }
+
+            @Override
+            public void onSDKError(AlivcLivePusher alivcLivePusher, AlivcLivePushError alivcLivePushError) {
+
+            }
+        });
+
+        aliVCLivePusher.setLivePushNetworkListener(new AlivcLivePushNetworkListener() {
+            @Override
+            public void onNetworkPoor(AlivcLivePusher alivcLivePusher) {
+
+            }
+
+            @Override
+            public void onNetworkRecovery(AlivcLivePusher alivcLivePusher) {
+
+            }
+
+            @Override
+            public void onReconnectStart(AlivcLivePusher alivcLivePusher) {
+
+            }
+
+            @Override
+            public void onReconnectFail(AlivcLivePusher alivcLivePusher) {
+
+            }
+
+            @Override
+            public void onReconnectSucceed(AlivcLivePusher alivcLivePusher) {
+
+            }
+
+            @Override
+            public void onSendDataTimeout(AlivcLivePusher alivcLivePusher) {
+
+            }
+
+            @Override
+            public void onConnectFail(AlivcLivePusher alivcLivePusher) {
+
+            }
+
+            @Override
+            public String onPushURLAuthenticationOverdue(AlivcLivePusher alivcLivePusher) {
+                return null;
+            }
+
+            @Override
+            public void onSendMessage(AlivcLivePusher alivcLivePusher) {
+
+            }
+        });
+
+        aliVCLivePusher.setLivePushBGMListener(new AlivcLivePushBGMListener() {
+            @Override
+            public void onStarted() {
+
+            }
+
+            @Override
+            public void onStoped() {
+
+            }
+
+            @Override
+            public void onPaused() {
+
+            }
+
+            @Override
+            public void onResumed() {
+
+            }
+
+            @Override
+            public void onProgress(long l, long l1) {
+
+            }
+
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onDownloadTimeout() {
+
+            }
+
+            @Override
+            public void onOpenFailed() {
+
+            }
+        });
+
         aliVCLivePusher.setLivePushInfoListener(new AlivcLivePushInfoListener() {
             @Override
             public void onPreviewStarted(AlivcLivePusher alivcLivePusher) {
