@@ -30,21 +30,21 @@ import avd.nk.com.apsaravideodemo.R;
  * a surface view, including some of the common actions such as {@link #preview()}, {@link #push(String)}
  * and so on, any other views can inherit it and implement its only layout to create a new liveVideoView.
  */
-public class BaseLiveVideoView extends ConstraintLayout {
-    private static final String TAG = BaseLiveVideoView.class.getSimpleName();
+public class BaseLivePusherView extends ConstraintLayout {
+    private static final String TAG = BaseLivePusherView.class.getSimpleName();
     protected SurfaceView surfaceView;
     protected AlivcLivePusher aliVCLivePusher;
     protected AlivcLivePushConfig aliVCLivePushConfig;
 
-    public BaseLiveVideoView(Context context) {
+    public BaseLivePusherView(Context context) {
         this(context, null);
     }
 
-    public BaseLiveVideoView(Context context, AttributeSet attrs) {
+    public BaseLivePusherView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public BaseLiveVideoView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public BaseLivePusherView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initView();
         initPushConfig();

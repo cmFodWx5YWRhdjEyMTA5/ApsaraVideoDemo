@@ -1,15 +1,13 @@
 package avd.nk.com.apsaravideodemo.widget;
 
 import android.content.Context;
-import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-
-import java.lang.ref.WeakReference;
 
 import avd.nk.com.apsaravideodemo.R;
 import avd.nk.com.apsaravideodemo.entity.Message;
 import avd.nk.com.apsaravideodemo.widget.view.BaseLivePusherView;
+import avd.nk.com.apsaravideodemo.widget.view.BaseLiveRoomView;
 import avd.nk.com.apsaravideodemo.widget.view.LiveVideoBottomPanel;
 import avd.nk.com.apsaravideodemo.widget.view.LiveVideoTopPanel;
 import avd.nk.com.apsaravideodemo.widget.view.MessageView;
@@ -17,36 +15,30 @@ import avd.nk.com.apsaravideodemo.widget.view.MessageView;
 /**
  * Created by Nikou Karter.
  *
- * LivePusherView is use to display the screen of anchor side in live video, inherit from
- * {@link BaseLivePusherView}, containing a few control panels {@link #liveVideoTopPanel},
- * {@link #liveVideoBottomPanel}, this view also use to pushing stream to server by simply call
- * {@link #push(String)} function.
+ *
  */
-public class LivePusherView extends BaseLivePusherView {
-    private static final String TAG = LivePusherView.class.getSimpleName();
-    private String pushPath;
+public class LiveRoomView extends BaseLiveRoomView {
     private MessageView messageView;
     private LiveVideoBottomPanel liveVideoBottomPanel;
     private LiveVideoTopPanel liveVideoTopPanel;
-    private PusherViewActionCallback callback;
+    private LiveRoomView.LiveRoomActionCallback callback;
 
-    public LivePusherView(Context context) {
+    public LiveRoomView(Context context) {
         this(context, null);
     }
 
-    public LivePusherView(Context context, AttributeSet attrs) {
+    public LiveRoomView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public LivePusherView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public LiveRoomView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initView();
     }
 
     private void initView() {
-        addView(LayoutInflater.from(getContext()).inflate(R.layout.view_live_push, this, false),
+        addView(LayoutInflater.from(getContext()).inflate(R.layout.view_live_room, this, false),
                 LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-
         messageView = findViewById(R.id.messageView);
 
         liveVideoBottomPanel = findViewById(R.id.liveVideoBottomPanel);
@@ -59,12 +51,12 @@ public class LivePusherView extends BaseLivePusherView {
 
             @Override
             public void onPushClick() {
-                callback.onPushClick();
+
             }
 
             @Override
             public void onSwitchCamera() {
-                aliVCLivePusher.switchCamera();
+
             }
         });
 
@@ -77,28 +69,19 @@ public class LivePusherView extends BaseLivePusherView {
         });
     }
 
-    private static class PusherHandler extends Handler {
-        private WeakReference<LivePusherView> weakReference;
-        private LivePusherView livePusherView;
-
-        PusherHandler(LivePusherView livePusherView){
-            weakReference = new WeakReference<>(livePusherView);
-            livePusherView = weakReference.get();
-        }
-
-        @Override
-        public void handleMessage(android.os.Message msg) {
-            super.handleMessage(msg);
-            //livePusherView.handlerMessage(msg);
-        }
-    }
-
-    public void setPusherViewActionCallback(PusherViewActionCallback callback){
+    public void setLiveRoomActionCallback(LiveRoomActionCallback callback) {
         this.callback = callback;
     }
 
-    public interface PusherViewActionCallback{
+    public void onPause() {
+        aliyunVodPlayer.pause();
+    }
+
+    public void onDestroy() {
+        aliyunVodPlayer.release();
+    }
+
+    public interface LiveRoomActionCallback {
         void onExitClick();
-        void onPushClick();
     }
 }

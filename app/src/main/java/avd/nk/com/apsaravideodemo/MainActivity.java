@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import avd.nk.com.apsaravideodemo.widget.LiveRoomView;
+
 /**
  * Created by Nikou Karter.
  *
@@ -69,6 +71,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, PushActivity.class);
                 intent.putExtra("pushPath", getPushPath());
+                startActivity(intent);
+            }
+        });
+
+        findViewById(R.id.liveRoomBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, LiveRoomActivity.class);
+                intent.putExtra("pullPath", getPullPath());
                 startActivity(intent);
             }
         });
