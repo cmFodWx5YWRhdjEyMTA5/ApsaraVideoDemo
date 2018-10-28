@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.view.View;
 
 /**
+ * Created by Nikou Karter.
+ *
  *
  */
 public class MainActivity extends AppCompatActivity {

@@ -19,6 +19,11 @@ import java.util.List;
 import avd.nk.com.apsaravideodemo.R;
 import avd.nk.com.apsaravideodemo.entity.Message;
 
+/**
+ * Created by Nikou Karter.
+ *
+ * {@link MessageView} is use to display the messages while in live video room sent by audiences.
+ */
 public class MessageView extends ConstraintLayout {
     private RecyclerView messageView;
     private MessageView.MessageAdapter adapter;
@@ -50,13 +55,19 @@ public class MessageView extends ConstraintLayout {
         messageView.setAdapter(adapter);
     }
 
+    /**
+     * @param message a new message received.
+     */
     public void newMessage(Message message) {
         messageList.add(message);
         adapter.notifyDataSetChanged();
         messageView.scrollToPosition(messageList.size() - 1);
     }
 
-    private class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
+    /**
+     * A simple recycleView adapter for MessageView use to display messages.
+     */
+    class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
         @NonNull
         @Override
         public MessageAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {

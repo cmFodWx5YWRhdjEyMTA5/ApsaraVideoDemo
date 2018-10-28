@@ -22,10 +22,18 @@ import java.util.List;
 import avd.nk.com.apsaravideodemo.R;
 import avd.nk.com.apsaravideodemo.entity.GlideApp;
 
+/**
+ * Created by Nikou Karter.
+ *
+ * LiveVideoTopPanel is a custom view for {@link avd.nk.com.apsaravideodemo.widget.LivePusherView}.
+ * It's use to display anchor and audience information including icons and names and how many people
+ * are in this live video room, it also including an button for exit the live video room.
+ */
 public class LiveVideoTopPanel extends ConstraintLayout {
-    private RecyclerView audienceView;
-    private AudienceViewAdapter audienceViewAdapter;
-    private List<Uri> audienceIconList = new ArrayList<>();
+    private RecyclerView audienceView;//a recycleView use to display audience icon.
+    private AudienceViewAdapter audienceViewAdapter;//simple recycleView adapter.
+    private LiveVideoTopPanelActionCallback callback;//a callback of top panel actions.
+    private List<Uri> audienceIconList = new ArrayList<>();//list of audience icon.
 
     public LiveVideoTopPanel(Context context) {
         this(context, null);
@@ -63,6 +71,10 @@ public class LiveVideoTopPanel extends ConstraintLayout {
         audienceView.setAdapter(audienceViewAdapter);
     }
 
+    /**
+     * see also {@link #updateAudienceList(Uri)}.
+     * @param uriList a collection of the icon.
+     */
     public void updateAudienceList(List<Uri> uriList) {
         if (audienceIconList != null) {
             audienceIconList.addAll(uriList);
@@ -71,6 +83,9 @@ public class LiveVideoTopPanel extends ConstraintLayout {
         }
     }
 
+    /**
+     * @param uri the address of the icon.
+     */
     public void updateAudienceList(Uri uri) {
         if (audienceIconList != null) {
             audienceIconList.add(uri);
@@ -79,6 +94,23 @@ public class LiveVideoTopPanel extends ConstraintLayout {
         }
     }
 
+    /**
+     * @param callback a top panel action callback.
+     */
+    public void setLiveVideoTopPanelActionCallback(LiveVideoTopPanelActionCallback callback){
+        this.callback = callback;
+    }
+
+    /**
+     * a simple top panel action callback, maybe more actions in future.
+     */
+    public interface LiveVideoTopPanelActionCallback {
+        void onExitClick();
+    }
+
+    /**
+     * A simple recyclerView adapter use for setting audience icons.
+     */
     class AudienceViewAdapter extends RecyclerView.Adapter<AudienceViewAdapter.ViewHolder> {
         @NonNull
         @Override

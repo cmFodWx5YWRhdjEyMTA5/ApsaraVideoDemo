@@ -6,6 +6,11 @@ import com.alivc.player.AliVcMediaPlayer;
 import com.alivc.player.VcPlayerLog;
 import com.squareup.leakcanary.LeakCanary;
 
+/**
+ * Created by Nikou Karter.
+ *
+ *
+ */
 public class DemoApplication extends Application {
 
     @Override

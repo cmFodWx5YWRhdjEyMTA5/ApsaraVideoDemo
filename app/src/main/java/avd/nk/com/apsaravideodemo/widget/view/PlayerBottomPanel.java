@@ -16,6 +16,11 @@ import com.aliyun.vodplayer.media.IAliyunVodPlayer;
 import avd.nk.com.apsaravideodemo.R;
 import avd.nk.com.apsaravideodemo.widget.PlayerView;
 
+/**
+ * Created by Nikou Karter.
+ *
+ * coming soon...
+ */
 public class PlayerBottomPanel extends LinearLayout {
     private final String TAG = PlayerBottomPanel.class.getSimpleName();
     private long duration;

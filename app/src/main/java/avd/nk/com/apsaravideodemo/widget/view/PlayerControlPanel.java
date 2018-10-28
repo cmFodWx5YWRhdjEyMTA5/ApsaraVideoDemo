@@ -10,6 +10,11 @@ import android.widget.TextView;
 import avd.nk.com.apsaravideodemo.R;
 import avd.nk.com.apsaravideodemo.widget.PlayerView;
 
+/**
+ * Created by Nikou Karter.
+ *
+ * coming soon...
+ */
 public class PlayerControlPanel extends RelativeLayout {
     private ProgressView volumeProgressView;
     private ProgressView brightnessProgressView;

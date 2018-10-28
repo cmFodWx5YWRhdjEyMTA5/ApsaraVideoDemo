@@ -25,6 +25,12 @@ import com.bumptech.glide.Glide;
 import avd.nk.com.apsaravideodemo.entity.GlideApp;
 import avd.nk.com.apsaravideodemo.widget.PlayerView;
 
+/**
+ * Created by Nikou Karter.
+ *
+ *
+ *
+ */
 public class PlayActivity extends AppCompatActivity {
     private final String TAG = PlayActivity.class.getSimpleName();
     private final String VOLUME_CHANGED = "android.media.VOLUME_CHANGED_ACTION";

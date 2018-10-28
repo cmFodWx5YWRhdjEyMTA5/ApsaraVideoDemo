@@ -15,11 +15,21 @@ import android.widget.Toast;
 import avd.nk.com.apsaravideodemo.R;
 import avd.nk.com.apsaravideodemo.widget.dialog.UniversalDialog;
 
+/**
+ * Created by Nikou Karter.
+ *
+ * LiveVideoBottomPanel is a custom view for {@link avd.nk.com.apsaravideodemo.widget.LivePusherView}.
+ * It's use to display the action buttons for user, including functions such as sending messages, start
+ * or stop pushing, switch camera and so on(audience side only display sending message button).
+ * {@link #messageBtn} show sending message dialog.
+ * {@link #startBtn} use to start or stop pushing stream.
+ * {@link #switchCamera} use to switch the camera of anchor's display.
+ */
 public class LiveVideoBottomPanel extends LinearLayout {
     private ImageView messageBtn;
     private ImageView startBtn;
     private ImageView switchCamera;
-    private UniversalDialog sendMessageDialog;
+    private UniversalDialog sendMessageDialog;//send message dialog.
     private LiveVideoBottomPanelActionCallback callback;
 
     private boolean isPushing = false;
@@ -99,6 +109,9 @@ public class LiveVideoBottomPanel extends LinearLayout {
         this.callback = callbak;
     }
 
+    /**
+     * A simple callback of LiveVideoBottomPanel.
+     */
     public interface LiveVideoBottomPanelActionCallback {
         void onMessageClick(String msg);
         void onPushClick();

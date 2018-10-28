@@ -12,6 +12,11 @@ import android.widget.TextView;
 import avd.nk.com.apsaravideodemo.R;
 import avd.nk.com.apsaravideodemo.widget.PlayerView;
 
+/**
+ * Created by Nikou Karter.
+ *
+ * coming soon.
+ */
 public class PlayerTopPanel extends LinearLayout {
     private PlayerView.TopPanelActionCallback actionCallback;
     private ImageView backBtn;

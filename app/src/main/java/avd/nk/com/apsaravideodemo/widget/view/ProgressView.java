@@ -12,14 +12,9 @@ import android.view.View;
 import avd.nk.com.apsaravideodemo.R;
 
 /**
- * Description:
- * <p></p>
- * Usage:
- * <p></p>
+ * Created by Nikou Karter.
  *
- * <h4>Created by Nikou Karter on 2018/10/23.</h4>
- * <h5>Email: nikou.karter@outlook.com</h5>
- * <h5>Tim: 2482 17909(as QQ)</h5>
+ * coming soon...
  */
 public class ProgressView extends View {
 
@@ -28,11 +23,11 @@ public class ProgressView extends View {
     private Paint linePaint;
     private Paint pointPaint;
 
-    private int pointRadius = 16;//圆点默认半径,单位px
-    private int pointColor = R.color.colorProgressPoint;//圆点默认颜色
+    private int pointRadius = 16;//default radius of point.
+    private int pointColor = R.color.colorProgressPoint;//default point color.
 
-    private int lineHeight = 4;//线默认高度,单位px
-    private int lineColor = R.color.colorProgressLine;//线默认颜色
+    private int lineHeight = 4;//default height of line (in px)
+    private int lineColor = R.color.colorProgressLine;//default line color.
 
     private float progressFloat = 0f;
     private final float PROGRESS_MIN = 0f;
@@ -74,7 +69,7 @@ public class ProgressView extends View {
 
     public void setPointRadius(final int radius) {
         if (radius <= 0) {
-            throw new IllegalArgumentException("radius 不可以小于等于0");
+            throw new IllegalArgumentException("radius can not be less than or equal to 0");
         }
 
         if (getWidth() == 0) {
@@ -82,14 +77,14 @@ public class ProgressView extends View {
                 @Override
                 public void run() {
                     if (radius * 2 > getWidth()) {
-                        throw new IllegalArgumentException("radius*2 必须小于 view.getWidth() == " + getWidth());
+                        throw new IllegalArgumentException("radius*2 must be less than view.getWidth() == " + getWidth());
                     }
                     pointRadius = radius;
                 }
             });
         } else {
             if (radius * 2 > getWidth()) {
-                throw new IllegalArgumentException("radius*2 必须小于 view.getWidth() == " + getWidth());
+                throw new IllegalArgumentException("radius*2 must be less than view.getWidth() == " + getWidth());
             }
             this.pointRadius = radius;
         }
@@ -101,7 +96,7 @@ public class ProgressView extends View {
 
     public void setLineHeight(int height) {
         if (height <= 0) {
-            throw new IllegalArgumentException("height 不可以小于等于0");
+            throw new IllegalArgumentException("height can not be less than or equal to 0");
         }
 
         this.lineHeight = height;
@@ -179,7 +174,7 @@ public class ProgressView extends View {
     }
 
     /**
-     * 获取圆点的x轴坐标
+     * get x coordinate of the point.
      *
      * @return
      */
@@ -187,13 +182,13 @@ public class ProgressView extends View {
         float cx;
         cx = (getWidth() - pointRadius * 2);
         if (cx < 0) {
-            throw new IllegalArgumentException("TouchProgressView 宽度不可以小于 2 倍 pointRadius");
+            throw new IllegalArgumentException("TouchProgressView's width can not be less than 2 times of point's radius");
         }
         return cx / 100 * progressFloat + pointRadius;
     }
 
     /**
-     * 计算触摸点的百分比
+     * calculate the percentage while in touching.
      *
      * @param eventX
      * @return

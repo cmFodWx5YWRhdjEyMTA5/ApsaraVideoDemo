@@ -1,22 +1,34 @@
 package avd.nk.com.apsaravideodemo.widget;
 
 import android.content.Context;
+import android.os.Handler;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.widget.Toast;
+
+import java.lang.ref.WeakReference;
+import java.util.logging.LogRecord;
 
 import avd.nk.com.apsaravideodemo.R;
 import avd.nk.com.apsaravideodemo.entity.Message;
 import avd.nk.com.apsaravideodemo.widget.view.BaseLiveVideoView;
 import avd.nk.com.apsaravideodemo.widget.view.LiveVideoBottomPanel;
+import avd.nk.com.apsaravideodemo.widget.view.LiveVideoTopPanel;
 import avd.nk.com.apsaravideodemo.widget.view.MessageView;
 
+/**
+ * Created by Nikou Karter.
+ *
+ * LivePusherView is use to display the screen of anchor side in live video, inherit from
+ * {@link BaseLiveVideoView}, containing a few control panels {@link #liveVideoTopPanel},
+ * {@link #liveVideoBottomPanel}, this view also use to pushing stream to server by simply call
+ * {@link #push(String)} function.
+ */
 public class LivePusherView extends BaseLiveVideoView {
     private static final String TAG = LivePusherView.class.getSimpleName();
     private String pushPath;
     private MessageView messageView;
     private LiveVideoBottomPanel liveVideoBottomPanel;
+    private LiveVideoTopPanel liveVideoTopPanel;
 
     public LivePusherView(Context context) {
         this(context, null);
@@ -55,59 +67,29 @@ public class LivePusherView extends BaseLiveVideoView {
                 aliVCLivePusher.switchCamera();
             }
         });
-    }
 
-    public void preview() {
-        try {
-            aliVCLivePusher.startPreviewAysnc(surfaceView);
-            //aliVCLivePusher.startPreview(surfaceView);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+        liveVideoTopPanel = findViewById(R.id.liveVideoTopPanel);
+        liveVideoTopPanel.setLiveVideoTopPanelActionCallback(new LiveVideoTopPanel.LiveVideoTopPanelActionCallback() {
+            @Override
+            public void onExitClick() {
 
-    public void stopPreview(){
-        try{
-            aliVCLivePusher.stopPreview();
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void push() {
-        try {
-            if (!aliVCLivePusher.isPushing()) {
-                if (pushPath != null) {
-                    aliVCLivePusher.startPush(pushPath);
-                    Toast.makeText(getContext(), "try to push", Toast.LENGTH_SHORT).show();
-                } else {
-                    Log.e(TAG, "push url is null, please check the path.");
-                }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        });
+    }
+
+    private static class PusherHandler extends Handler {
+        private WeakReference<LivePusherView> weakReference;
+        private LivePusherView livePusherView;
+
+        PusherHandler(LivePusherView livePusherView){
+            weakReference = new WeakReference<>(livePusherView);
+            livePusherView = weakReference.get();
         }
-    }
 
-    public void stopPush() {
-        try {
-            if (aliVCLivePusher.isPushing()) {
-                aliVCLivePusher.stopPush();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        @Override
+        public void handleMessage(android.os.Message msg) {
+            super.handleMessage(msg);
+            //livePusherView.handlerMessage(msg);
         }
-    }
-
-    public void onResume(){
-        aliVCLivePusher.resume();
-    }
-
-    public void onPause(){
-        aliVCLivePusher.pause();
-    }
-
-    public void onDestroy(){
-        aliVCLivePusher.destroy();
     }
 }

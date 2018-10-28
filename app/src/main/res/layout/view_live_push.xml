@@ -19,6 +19,7 @@
         app:layout_constraintGuide_percent="0.7" />
 
     <avd.nk.com.apsaravideodemo.widget.view.LiveVideoTopPanel
+        android:id="@+id/liveVideoTopPanel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"

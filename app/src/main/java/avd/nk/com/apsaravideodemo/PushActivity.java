@@ -11,6 +11,12 @@ import android.util.Log;
 
 import avd.nk.com.apsaravideodemo.widget.LivePusherView;
 
+/**
+ * Created by Nikou Karter.
+ *
+ *
+ *
+ */
 public class PushActivity extends AppCompatActivity {
     private static final String TAG = "PushActivity";
     private final int START_PREVIEW = 11;

@@ -1,5 +1,10 @@
 package avd.nk.com.apsaravideodemo.entity;
 
+/**
+ * Created by Nikou Karter.
+ *
+ *
+ */
 public class Message {
     private String senderName;
     private String content;

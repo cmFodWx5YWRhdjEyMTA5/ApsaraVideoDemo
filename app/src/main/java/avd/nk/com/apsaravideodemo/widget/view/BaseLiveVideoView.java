@@ -23,6 +23,13 @@ import com.alivc.live.pusher.AlivcQualityModeEnum;
 
 import avd.nk.com.apsaravideodemo.R;
 
+/**
+ * Created by Nikou Karter.
+ *
+ * BaseLiveVideoView is a base view for live video pushing view, it's designed to be containing only
+ * a surface view, including some of the common actions such as {@link #preview()}, {@link #push(String)}
+ * and so on, any other views can inherit it and implement its only layout to create a new liveVideoView.
+ */
 public class BaseLiveVideoView extends ConstraintLayout {
     private static final String TAG = BaseLiveVideoView.class.getSimpleName();
     protected SurfaceView surfaceView;
@@ -49,6 +56,9 @@ public class BaseLiveVideoView extends ConstraintLayout {
         initSurfaceView();
     }
 
+    /**
+     * init the surface view for pusher.
+     */
     private void initSurfaceView() {
         surfaceView = findViewById(R.id.surfaceView);
         surfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
@@ -69,20 +79,22 @@ public class BaseLiveVideoView extends ConstraintLayout {
         });
     }
 
+    /**
+     * init pusher.
+     */
     private void initPusher() {
         aliVCLivePusher = new AlivcLivePusher();
-        Log.i(TAG, "aliVCLivePusher init.");
         aliVCLivePusher.init(getContext(), aliVCLivePushConfig);
 
         aliVCLivePusher.setLivePushErrorListener(new AlivcLivePushErrorListener() {
             @Override
             public void onSystemError(AlivcLivePusher alivcLivePusher, AlivcLivePushError alivcLivePushError) {
-
+                alivcLivePusher.pause();
             }
 
             @Override
             public void onSDKError(AlivcLivePusher alivcLivePusher, AlivcLivePushError alivcLivePushError) {
-
+                alivcLivePusher.pause();
             }
         });
 
@@ -178,42 +190,42 @@ public class BaseLiveVideoView extends ConstraintLayout {
         aliVCLivePusher.setLivePushInfoListener(new AlivcLivePushInfoListener() {
             @Override
             public void onPreviewStarted(AlivcLivePusher alivcLivePusher) {
-
+                Log.e(TAG, "livePusher : preview started.");
             }
 
             @Override
             public void onPreviewStoped(AlivcLivePusher alivcLivePusher) {
-
+                Log.e(TAG, "livePusher : preview stopped.");
             }
 
             @Override
             public void onPushStarted(AlivcLivePusher alivcLivePusher) {
-
+                Log.e(TAG, "livePusher : start pushing stream...");
             }
 
             @Override
             public void onPushPauesed(AlivcLivePusher alivcLivePusher) {
-
+                Log.e(TAG, "livePusher : paused.");
             }
 
             @Override
             public void onPushResumed(AlivcLivePusher alivcLivePusher) {
-
+                Log.e(TAG, "livePusher : start pushing stream from resume.");
             }
 
             @Override
             public void onPushStoped(AlivcLivePusher alivcLivePusher) {
-
+                Log.e(TAG, "livePusher : stop pushing stream...");
             }
 
             @Override
             public void onPushRestarted(AlivcLivePusher alivcLivePusher) {
-
+                //Log.e(TAG, "livePusher stop pushing stream...");
             }
 
             @Override
             public void onFirstFramePreviewed(AlivcLivePusher alivcLivePusher) {
-
+                Log.e(TAG, "livePusher : first frame previewed.");
             }
 
             @Override
@@ -233,6 +245,9 @@ public class BaseLiveVideoView extends ConstraintLayout {
         });
     }
 
+    /**
+     * init config profile for pusher.
+     */
     private void initPushConfig() {
         aliVCLivePushConfig = new AlivcLivePushConfig();
         //mAliVCLivePushConfig.setResolution(AlivcResolutionEnum.RESOLUTION_540P);//set resolution.
@@ -245,12 +260,72 @@ public class BaseLiveVideoView extends ConstraintLayout {
         aliVCLivePushConfig.setPreviewDisplayMode(AlivcPreviewDisplayMode.ALIVC_LIVE_PUSHER_PREVIEW_ASPECT_FILL);
     }
 
+    /**
+     * use to set video quality by user himself.
+     * @param targetBitrate set target bitrate.
+     * @param minBitrate set min bitrate.
+     * @param initBitrate default bitrate.
+     */
     private void setCustomQualityMode(int targetBitrate, int minBitrate, int initBitrate) {
         if (aliVCLivePushConfig != null) {
             aliVCLivePushConfig.setQualityMode(AlivcQualityModeEnum.QM_CUSTOM);
             aliVCLivePushConfig.setTargetVideoBitrate(targetBitrate);
             aliVCLivePushConfig.setMinVideoBitrate(minBitrate);
             aliVCLivePushConfig.setInitialVideoBitrate(initBitrate);
+        }
+    }
+
+    public void onResume(){
+        aliVCLivePusher.resume();
+    }
+
+    public void onPause(){
+        aliVCLivePusher.pause();
+    }
+
+    public void onDestroy(){
+        aliVCLivePusher.destroy();
+    }
+
+    public void preview() {
+        try {
+            aliVCLivePusher.startPreviewAysnc(surfaceView);
+            //aliVCLivePusher.startPreview(surfaceView);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void stopPreview(){
+        try{
+            aliVCLivePusher.stopPreview();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void push(String pushPath) {
+        try {
+            if (!aliVCLivePusher.isPushing()) {
+                if (pushPath != null) {
+                    aliVCLivePusher.startPushAysnc(pushPath);
+                    //aliVCLivePusher.startPush(pushPath);
+                } else {
+                    Log.e(TAG, "push url is null, please check the path.");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void stopPush() {
+        try {
+            if (aliVCLivePusher.isPushing()) {
+                aliVCLivePusher.stopPush();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
