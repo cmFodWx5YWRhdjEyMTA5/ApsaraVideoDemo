@@ -6,7 +6,6 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 
 import java.lang.ref.WeakReference;
-import java.util.logging.LogRecord;
 
 import avd.nk.com.apsaravideodemo.R;
 import avd.nk.com.apsaravideodemo.entity.Message;
@@ -29,6 +28,7 @@ public class LivePusherView extends BaseLiveVideoView {
     private MessageView messageView;
     private LiveVideoBottomPanel liveVideoBottomPanel;
     private LiveVideoTopPanel liveVideoTopPanel;
+    private PusherViewActionCallback callback;
 
     public LivePusherView(Context context) {
         this(context, null);
@@ -59,7 +59,8 @@ public class LivePusherView extends BaseLiveVideoView {
 
             @Override
             public void onPushClick() {
-                preview();
+                //preview();
+                //push();
             }
 
             @Override
@@ -72,7 +73,7 @@ public class LivePusherView extends BaseLiveVideoView {
         liveVideoTopPanel.setLiveVideoTopPanelActionCallback(new LiveVideoTopPanel.LiveVideoTopPanelActionCallback() {
             @Override
             public void onExitClick() {
-
+                callback.onExitClick();
             }
         });
     }
@@ -91,5 +92,14 @@ public class LivePusherView extends BaseLiveVideoView {
             super.handleMessage(msg);
             //livePusherView.handlerMessage(msg);
         }
+    }
+
+    public void setPusherViewActionCallback(PusherViewActionCallback callback){
+        this.callback = callback;
+    }
+
+    public interface PusherViewActionCallback{
+        void onExitClick();
+        void onStartClick();
     }
 }

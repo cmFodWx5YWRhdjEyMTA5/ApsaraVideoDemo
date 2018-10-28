@@ -24,7 +24,6 @@ public class PushActivity extends AppCompatActivity {
     private LivePusherView livePusherView;
 
     private String pushPath;
-    private boolean isFinish = false;
 
     private Handler handler = new Handler(Looper.getMainLooper()) {
         @Override
@@ -60,6 +59,17 @@ public class PushActivity extends AppCompatActivity {
 
     private void initView() {
         livePusherView = findViewById(R.id.livePlayerVew);
+        livePusherView.setPusherViewActionCallback(new LivePusherView.PusherViewActionCallback() {
+            @Override
+            public void onExitClick() {
+                finish();
+            }
+
+            @Override
+            public void onStartClick() {
+                livePusherView.push("");
+            }
+        });
     }
 
     @Override

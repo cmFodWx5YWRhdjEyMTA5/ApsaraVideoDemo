@@ -51,6 +51,13 @@ public class LiveVideoTopPanel extends ConstraintLayout {
     private void initView() {
         LayoutInflater.from(getContext()).inflate(R.layout.view_live_top_panel, this, true);
         initAudienceView();
+
+        findViewById(R.id.leaveBtn).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callback.onExitClick();
+            }
+        });
     }
 
     private void initAudienceView() {
