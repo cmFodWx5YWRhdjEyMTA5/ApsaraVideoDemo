@@ -4,6 +4,8 @@ import android.view.View;
 
 /**
  * Created by Nikou Karter.
+ *
+ * supports views animation for player or pusher.
  */
 public class AnimationUtils {
 

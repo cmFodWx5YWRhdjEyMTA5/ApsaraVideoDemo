@@ -66,8 +66,8 @@ public class PushActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onStartClick() {
-                livePusherView.push("");
+            public void onPushClick() {
+                livePusherView.push(pushPath);
             }
         });
     }

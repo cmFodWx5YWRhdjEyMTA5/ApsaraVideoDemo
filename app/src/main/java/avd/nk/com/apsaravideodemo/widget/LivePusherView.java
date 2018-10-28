@@ -59,8 +59,7 @@ public class LivePusherView extends BaseLiveVideoView {
 
             @Override
             public void onPushClick() {
-                //preview();
-                //push();
+                callback.onPushClick();
             }
 
             @Override
@@ -100,6 +99,6 @@ public class LivePusherView extends BaseLiveVideoView {
 
     public interface PusherViewActionCallback{
         void onExitClick();
-        void onStartClick();
+        void onPushClick();
     }
 }
