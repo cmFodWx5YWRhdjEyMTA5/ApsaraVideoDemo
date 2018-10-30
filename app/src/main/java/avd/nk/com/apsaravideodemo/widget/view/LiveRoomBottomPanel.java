@@ -1,16 +1,17 @@
 package avd.nk.com.apsaravideodemo.widget.view;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import com.aliyun.vodplayer.media.IAliyunVodPlayer;
 
 import avd.nk.com.apsaravideodemo.R;
 import avd.nk.com.apsaravideodemo.widget.dialog.UniversalDialog;
@@ -18,37 +19,34 @@ import avd.nk.com.apsaravideodemo.widget.dialog.UniversalDialog;
 /**
  * Created by Nikou Karter.
  *
- * LiveVideoBottomPanel is a custom view for {@link avd.nk.com.apsaravideodemo.widget.LivePusherView}.
+ * LiveVideoBottomPanel is a custom view for {@link avd.nk.com.apsaravideodemo.widget.LiveRoomView}.
  * It's use to display the action buttons for user, including functions such as sending messages, start
- * or stop pushing, switch camera and so on(audience side only display sending message button).
+ * or stop.
  * {@link #messageBtn} show sending message dialog.
- * {@link #startBtn} use to start or stop pushing stream.
- * {@link #switchCamera} use to switch the camera of anchor's display.
+ * {@link #startBtn} use to start or stop pull stream.
+ *
  */
-public class LiveVideoBottomPanel extends LinearLayout {
+public class LiveRoomBottomPanel extends ConstraintLayout {
     private ImageView messageBtn;
     private ImageView startBtn;
-    private ImageView switchCamera;
     private UniversalDialog sendMessageDialog;//send message dialog.
-    private LiveVideoBottomPanelActionCallback callback;
+    private LiveRoomBottomPanelActionCallback callback;
 
-    private boolean isPushing = false;
-
-    public LiveVideoBottomPanel(Context context) {
+    public LiveRoomBottomPanel(Context context) {
         this(context, null);
     }
 
-    public LiveVideoBottomPanel(Context context, @Nullable AttributeSet attrs) {
+    public LiveRoomBottomPanel(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public LiveVideoBottomPanel(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public LiveRoomBottomPanel(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initView();
     }
 
     private void initView() {
-        LayoutInflater.from(getContext()).inflate(R.layout.view_live_bottom_panel, this, true);
+        LayoutInflater.from(getContext()).inflate(R.layout.view_live_room_bottom_panel, this, true);
         initDialog();
 
         messageBtn = findViewById(R.id.messageBtn);
@@ -63,15 +61,7 @@ public class LiveVideoBottomPanel extends LinearLayout {
         startBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                callback.onPushClick();
-            }
-        });
-
-        switchCamera = findViewById(R.id.switchCamera);
-        switchCamera.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                callback.onSwitchCamera();
+                callback.onStartPlayClick();
             }
         });
     }
@@ -105,16 +95,31 @@ public class LiveVideoBottomPanel extends LinearLayout {
         sendMessageDialog.isHideSoftKeyboardOnDismiss(true);
     }
 
-    public void setLiveVideoBottomPanelActionCallback(LiveVideoBottomPanelActionCallback callbak){
-        this.callback = callbak;
+    public void setLiveRoomBottomPanelActionCallback(LiveRoomBottomPanelActionCallback callback){
+        this.callback = callback;
+    }
+
+    public void onStateChanged(IAliyunVodPlayer.PlayerState state){
+        switch (state) {
+            case Started:
+                startBtn.setImageResource(R.drawable.ic_stop_red);
+                break;
+            case Paused:
+            case Idle:
+            case Error:
+                startBtn.setImageResource(R.drawable.ic_play_green);
+                break;
+            case Completed:
+
+                break;
+        }
     }
 
     /**
      * A simple callback of LiveVideoBottomPanel.
      */
-    public interface LiveVideoBottomPanelActionCallback {
+    public interface LiveRoomBottomPanelActionCallback {
         void onMessageClick(String msg);
-        void onPushClick();
-        void onSwitchCamera();
+        void onStartPlayClick();
     }
 }

@@ -3,6 +3,7 @@ package avd.nk.com.apsaravideodemo.widget.view;
 import android.content.Context;
 import android.support.constraint.ConstraintLayout;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -19,10 +20,9 @@ import avd.nk.com.apsaravideodemo.listeners.player.OnCompletionListener;
 
 /**
  * Created by Nikou Karter.
- *
- *
  */
 public class BaseLiveRoomView extends ConstraintLayout {
+    private final String TAG = BaseLiveRoomView.class.getSimpleName();
     protected SurfaceView surfaceView;
     protected AliyunVodPlayer aliyunVodPlayer;
 
@@ -60,7 +60,7 @@ public class BaseLiveRoomView extends ConstraintLayout {
         aliyunVodPlayer.setOnErrorListener(new IAliyunVodPlayer.OnErrorListener() {
             @Override
             public void onError(int i, int i1, String s) {
-
+                Log.i(TAG, "on error : i=" + i + " | i1=" + i1 + " | s=" + s);
             }
         });
 
@@ -74,7 +74,7 @@ public class BaseLiveRoomView extends ConstraintLayout {
         aliyunVodPlayer.setOnInfoListener(new IAliyunVodPlayer.OnInfoListener() {
             @Override
             public void onInfo(int i, int i1) {
-
+                Log.i(TAG, "on info : i=" + i + " | i1=" + i1);
             }
         });
 

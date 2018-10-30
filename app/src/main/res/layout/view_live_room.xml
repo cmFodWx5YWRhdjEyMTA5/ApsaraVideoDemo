@@ -4,6 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <SurfaceView
+    android:id="@+id/surfaceView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
     <android.support.constraint.Guideline
         android:id="@+id/vGuideLine"
         android:layout_width="wrap_content"
@@ -32,13 +41,13 @@
         android:layout_height="0dp"
         android:layout_margin="8dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/liveVideoBottomPanel"
+        app:layout_constraintBottom_toTopOf="@+id/liveRoomBottomPanel"
         app:layout_constraintEnd_toStartOf="@+id/vGuideLine"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/hGuideline" />
 
-    <avd.nk.com.apsaravideodemo.widget.view.LiveVideoBottomPanel
-        android:id="@+id/liveVideoBottomPanel"
+    <avd.nk.com.apsaravideodemo.widget.view.LiveRoomBottomPanel
+        android:id="@+id/liveRoomBottomPanel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"

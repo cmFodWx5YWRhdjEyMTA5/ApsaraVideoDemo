@@ -108,6 +108,10 @@ public class LiveVideoTopPanel extends ConstraintLayout {
         this.callback = callback;
     }
 
+    public void clearCallback(){
+        this.callback = null;
+    }
+
     /**
      * a simple top panel action callback, maybe more actions in future.
      */

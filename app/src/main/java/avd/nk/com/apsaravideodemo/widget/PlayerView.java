@@ -381,6 +381,7 @@ public class PlayerView extends RelativeLayout {
             @Override
             public void onFirstFrameStart() {
                 startProgressUpdateTimer();
+                playerBottomPanel.onPlayStateChanged(getPlayerState());
             }
         });
 
@@ -400,6 +401,13 @@ public class PlayerView extends RelativeLayout {
             @Override
             public void onChangeQualityFail(int i, String s) {
 
+            }
+        });
+
+        aliyunVodPlayer.setOnBufferingUpdateListener(new IAliyunVodPlayer.OnBufferingUpdateListener() {
+            @Override
+            public void onBufferingUpdate(int i) {
+                Log.i(TAG, "onBufferingUpdate i = " + i);
             }
         });
 

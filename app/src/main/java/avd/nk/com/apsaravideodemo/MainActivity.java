@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 
 import avd.nk.com.apsaravideodemo.widget.LiveRoomView;
 
@@ -19,10 +20,13 @@ import avd.nk.com.apsaravideodemo.widget.LiveRoomView;
  */
 public class MainActivity extends AppCompatActivity {
 
-    private String pullPath = "http://player.alicdn.com/video/aliyunmedia.mp4";
+    //private String pullPath = "http://player.alicdn.com/video/aliyunmedia.mp4";
     //private String pullPath = "http://files.puxiansheng.net/record/study/video/2018-10-01/c32c580794bec2221e1922a244c47542.mp4";
-    //private String pullPath = "rtmp://live.puxiansheng.net/ceshi/5?auth_key=1540286271-0-0-a772f31c77667dd59966994d1c8d2e19";
-    private String pushPath = "rtmp://tl.puxiansheng.net/ceshi/5?auth_key=1540286271-0-0-f907eb296356f876d2132e261e4aec6d";
+    private String pullPath = "rtmp://live.puxiansheng.net/ceshi/5?auth_key=1540919744-0-0-f3f15571b524d7d4721b2c301c649a41";
+    private String pushPath = "rtmp://tl.puxiansheng.net/ceshi/5?auth_key=1540919744-0-0-481939850af5ea2e01604074aea15672";
+
+    private EditText inputPullUrl;
+    private EditText inputPushUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +61,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        inputPullUrl = findViewById(R.id.inputPullUrl);
+        inputPullUrl.setText(pullPath);
+
+        inputPushUrl = findViewById(R.id.inputPushUrl);
+        inputPushUrl.setText(pushPath);
+
         findViewById(R.id.playBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,10 +96,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private String getPushPath(){
-        return pushPath;
+        return inputPushUrl.getText().toString();
     }
 
     private String getPullPath(){
-        return pullPath;
+        return inputPullUrl.getText().toString();
     }
 }

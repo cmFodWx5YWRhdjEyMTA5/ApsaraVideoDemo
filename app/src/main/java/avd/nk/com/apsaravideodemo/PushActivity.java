@@ -18,12 +18,14 @@ import avd.nk.com.apsaravideodemo.widget.LivePusherView;
  *
  */
 public class PushActivity extends AppCompatActivity {
-    private static final String TAG = "PushActivity";
+    //private static final String TAG = "PushActivity";
     private final int START_PREVIEW = 11;
 
     private LivePusherView livePusherView;
 
     private String pushPath;
+
+    private boolean isPushing = false;
 
     private Handler handler = new Handler(Looper.getMainLooper()) {
         @Override
@@ -44,14 +46,15 @@ public class PushActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_push);
         initView();
+        pushPath = getPushPathFromIntent();
     }
 
     private String getPushPathFromIntent() {
         String pushPath = getIntent().getStringExtra("pushPath");
-        Log.i(TAG, "got intent extra string push path is : " + pushPath);
+        //Log.i(TAG, "got intent extra string push path is : " + pushPath);
 
         if (pushPath == null) {
-            Log.e(TAG, "error! got an empty push path!");
+            //Log.e(TAG, "error! got an empty push path!");
         }
 
         return pushPath;
@@ -62,12 +65,25 @@ public class PushActivity extends AppCompatActivity {
         livePusherView.setPusherViewActionCallback(new LivePusherView.PusherViewActionCallback() {
             @Override
             public void onExitClick() {
+                /*livePusherView.stopPush();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        livePusherView.stopPreview();
+                    }
+                }, 1000);*/
                 finish();
             }
 
             @Override
             public void onPushClick() {
-                livePusherView.push(pushPath);
+                if(isPushing){
+                    livePusherView.stopPush();
+                    isPushing = false;
+                }else {
+                    livePusherView.push(pushPath);
+                    isPushing = true;
+                }
             }
         });
     }
@@ -97,7 +113,9 @@ public class PushActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        //livePusherView.clearCallback();
         livePusherView.onDestroy();
+        //livePusherView = null;
         if (handler != null) {
             handler.removeCallbacksAndMessages(null);
             handler = null;

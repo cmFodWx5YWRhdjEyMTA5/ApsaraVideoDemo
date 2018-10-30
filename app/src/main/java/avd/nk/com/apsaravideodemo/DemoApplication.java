@@ -33,7 +33,7 @@ public class DemoApplication extends Application {
 
         //AliyunDownloadManager.getInstance(this).setDownloadConfig(config);
 
-        initLeakCanary();
+        //initLeakCanary();
         initGlide();
     }
 
