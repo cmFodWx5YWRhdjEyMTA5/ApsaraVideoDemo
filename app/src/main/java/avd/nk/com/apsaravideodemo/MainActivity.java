@@ -22,8 +22,8 @@ public class MainActivity extends AppCompatActivity {
 
     //private String pullPath = "http://player.alicdn.com/video/aliyunmedia.mp4";
     //private String pullPath = "http://files.puxiansheng.net/record/study/video/2018-10-01/c32c580794bec2221e1922a244c47542.mp4";
-    private String pullPath = "rtmp://live.puxiansheng.net/ceshi/5?auth_key=1540919744-0-0-f3f15571b524d7d4721b2c301c649a41";
-    private String pushPath = "rtmp://tl.puxiansheng.net/ceshi/5?auth_key=1540919744-0-0-481939850af5ea2e01604074aea15672";
+    private String pullPath = "rtmp://live.puxiansheng.net/ceshi/5?auth_key=1540976383-0-0-6965b01147ca6ca096d301ab689e1736";
+    private String pushPath = "rtmp://tl.puxiansheng.net/ceshi/5?auth_key=1540976383-0-0-b5697328dbef690be772968289eb63db";
 
     private EditText inputPullUrl;
     private EditText inputPushUrl;
@@ -51,10 +51,12 @@ public class MainActivity extends AppCompatActivity {
             if (this.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
                     this.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
                     this.checkSelfPermission(Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED ||
+                    this.checkSelfPermission(Manifest.permission.MODIFY_AUDIO_SETTINGS) != PackageManager.PERMISSION_GRANTED ||
                     this.checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
                         Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.RECORD_AUDIO,
+                        Manifest.permission.MODIFY_AUDIO_SETTINGS,
                         Manifest.permission.CAMERA}, 0);
             }
         }
