@@ -1,7 +1,6 @@
 package avd.nk.com.apsaravideodemo.widget;
 
 import android.content.Context;
-import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -26,6 +25,7 @@ import com.alivc.live.pusher.AlivcQualityModeEnum;
 import com.alivc.live.pusher.AlivcResolutionEnum;
 
 import java.lang.ref.WeakReference;
+import java.lang.reflect.Field;
 
 import avd.nk.com.apsaravideodemo.R;
 import avd.nk.com.apsaravideodemo.entity.Message;
@@ -33,6 +33,8 @@ import avd.nk.com.apsaravideodemo.widget.view.BaseLivePusherView;
 import avd.nk.com.apsaravideodemo.widget.view.LivePushBottomPanel;
 import avd.nk.com.apsaravideodemo.widget.view.LiveVideoTopPanel;
 import avd.nk.com.apsaravideodemo.widget.view.MessageView;
+
+import com.alivc.live.pusher.a;
 
 /**
  * Created by Nikou Karter.
@@ -52,6 +54,7 @@ public class LivePusherView extends ConstraintLayout {
     private PusherViewActionCallback callback;
     private AlivcLivePusher aliVCLivePusher;
     private AlivcLivePushConfig aliVCLivePushConfig;
+    private WeakReference<Context> weakReference;
 
     public LivePusherView(Context context) {
         this(context, null);
@@ -101,8 +104,14 @@ public class LivePusherView extends ConstraintLayout {
     }
 
     private void initPlayer() {
+
+        weakReference = new WeakReference<>(this.getContext());
         aliVCLivePusher = new AlivcLivePusher();
-        aliVCLivePusher.init(getContext(), aliVCLivePushConfig);
+        try{
+            aliVCLivePusher.init(weakReference.get(), aliVCLivePushConfig);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
         aliVCLivePusher.setLivePushErrorListener(new AlivcLivePushErrorListener() {
             @Override
@@ -361,6 +370,37 @@ public class LivePusherView extends ConstraintLayout {
         //aliVCLivePusher.stopPush();
     }
 
+    /*private void reflect(){
+        Class c = aliVCLivePusher.getClass();
+        a ac = new a(null);
+        Field[] fields = c.getDeclaredFields("mBluetoothHelper");
+        for(Field field:fields){
+            if(field.getName().equals("")){
+                try {
+                    field.set(ac, null);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }*/
+
+    /**
+     * this method works if aliVCLivePusher on its destroy life circle can not set "mBluetoothHelper"
+     * and "mPushBGMListener" to null, if these param are not null, they may cause memory leaks.
+     * @param aliVCLivePusher a local param of aliVCLivePusher.
+     */
+    private void clear(AlivcLivePusher aliVCLivePusher){
+        try {
+            ReflectHelper.setField(aliVCLivePusher, "mPushBGMListener", null);
+            ReflectHelper.setField(aliVCLivePusher, "mBluetoothHelper", null);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void onDestroy() {
         liveVideoTopPanel.clearCallback();
         liveVideoTopPanel = null;
@@ -368,22 +408,20 @@ public class LivePusherView extends ConstraintLayout {
         livePushBottomPanel = null;
         messageView = null;
         callback = null;
-        /*if(aliVCLivePusher.isPushing()){
-            aliVCLivePusher.stopPush();
-        }
-        aliVCLivePusher.stopPreview();*/
+
         try {
             aliVCLivePusher.destroy();
-            aliVCLivePusher = null;
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        clear(aliVCLivePusher);
     }
 
     public void preview() {
         try {
-            //aliVCLivePusher.startPreviewAysnc(surfaceView);
-            aliVCLivePusher.startPreview(surfaceView);
+            aliVCLivePusher.startPreviewAysnc(surfaceView);
+            //aliVCLivePusher.startPreview(surfaceView);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -401,8 +439,8 @@ public class LivePusherView extends ConstraintLayout {
         try {
             if (!aliVCLivePusher.isPushing()) {
                 if (pushPath != null) {
-                    //aliVCLivePusher.startPushAysnc(pushPath);
-                    aliVCLivePusher.startPush(pushPath);
+                    aliVCLivePusher.startPushAysnc(pushPath);
+                    //aliVCLivePusher.startPush(pushPath);
                 } else {
                     Log.e(TAG, "push url is null, please check the path.");
                 }
