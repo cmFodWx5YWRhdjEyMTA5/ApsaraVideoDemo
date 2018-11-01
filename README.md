@@ -24,6 +24,6 @@ Step 2 : Add the dependency.
 
 ~~~groovy
 dependencies {
-    implementation 'com.github.NikouKarter:ApsaraVideoDemo:Tag'
+    implementation 'com.github.NikouKarter:ApsaraVideoDemo:1.0.0'
 }
 ~~~
