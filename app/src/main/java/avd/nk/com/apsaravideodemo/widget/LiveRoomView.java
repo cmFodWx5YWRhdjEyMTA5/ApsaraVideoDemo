@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.aliyun.vodplayer.media.AliyunLocalSource;
@@ -15,10 +17,13 @@ import com.aliyun.vodplayer.media.AliyunVidSource;
 import com.aliyun.vodplayer.media.AliyunVidSts;
 import com.aliyun.vodplayer.media.AliyunVodPlayer;
 import com.aliyun.vodplayer.media.IAliyunVodPlayer;
+import com.github.ybq.android.spinkit.SpinKitView;
+import com.github.ybq.android.spinkit.style.DoubleBounce;
 
 import avd.nk.com.apsaravideodemo.R;
 import avd.nk.com.apsaravideodemo.entity.Message;
 import avd.nk.com.apsaravideodemo.listeners.player.OnCompletionListener;
+import avd.nk.com.apsaravideodemo.widget.view.ErrorView;
 import avd.nk.com.apsaravideodemo.widget.view.LiveRoomBottomPanel;
 import avd.nk.com.apsaravideodemo.widget.view.LiveVideoTopPanel;
 import avd.nk.com.apsaravideodemo.widget.view.MessageView;
@@ -53,6 +58,7 @@ public class LiveRoomView extends ConstraintLayout {
         aliyunVodPlayer = new AliyunVodPlayer(getContext());
         aliyunVodPlayer.setVideoScalingMode(IAliyunVodPlayer.VideoScalingMode.VIDEO_SCALING_MODE_SCALE_TO_FIT);
         aliyunVodPlayer.setAutoPlay(true);
+        aliyunVodPlayer.setNetworkTimeout(8);
 
         aliyunVodPlayer.setOnPreparedListener(new IAliyunVodPlayer.OnPreparedListener() {
             @Override
@@ -68,14 +74,24 @@ public class LiveRoomView extends ConstraintLayout {
                 LiveRoomView.this.post(new Runnable() {
                     @Override
                     public void run() {
-                        switch (i){
+                        switch (i) {
                             case 4008:
                                 Toast.makeText(getContext(), "error : video loading over time.", Toast.LENGTH_LONG).show();
+                                //liveRoomBottomPanel.onStateChanged(aliyunVodPlayer.getPlayerState());
+                                //errorView.setVisibility(VISIBLE);
+                                aliyunVodPlayer.replay();
+                                spinKitView.setVisibility(GONE);
                                 liveRoomBottomPanel.onStateChanged(aliyunVodPlayer.getPlayerState());
                                 break;
+                            case 4003:
+                                liveRoomBottomPanel.onStateChanged(aliyunVodPlayer.getPlayerState());
+                                errorView.setVisibility(VISIBLE);
+                                spinKitView.setVisibility(INVISIBLE);
+                                break;
+                            default:
+                                //Toast.makeText(getContext(), "error : no stream from url, please exit the activity and come back later.", Toast.LENGTH_LONG).show();
+                                break;
                         }
-                        Toast.makeText(getContext(), "error : no stream from url, please exit the activity and come back later.", Toast.LENGTH_LONG).show();
-                        liveRoomBottomPanel.onStateChanged(aliyunVodPlayer.getPlayerState());
                     }
                 });
             }
@@ -103,16 +119,21 @@ public class LiveRoomView extends ConstraintLayout {
                     public void run() {
                         switch (i) {
                             case 101://start buffering.
+                                enableLoadingView(true);
+                                liveRoomBottomPanel.onStateChanged(aliyunVodPlayer.getPlayerState());
                                 Toast.makeText(getContext(), "start buffering stream.", Toast.LENGTH_SHORT).show();
                                 break;
                             case 102://complete buffering.
+                                enableLoadingView(false);
+                                liveRoomBottomPanel.onStateChanged(aliyunVodPlayer.getPlayerState());
                                 Toast.makeText(getContext(), "complete buffering stream.", Toast.LENGTH_SHORT).show();
                                 break;
                             case 3://first frame is previewed.
                                 Toast.makeText(getContext(), "first frame loaded.", Toast.LENGTH_SHORT).show();
                                 break;
                             case 105://error stream from server.
-                                Toast.makeText(getContext(), "pusher maybe stopped, please exit the room.", Toast.LENGTH_SHORT).show();
+                                enableLoadingView(true);
+                                //Toast.makeText(getContext(), "pusher maybe stopped, please exit the room.", Toast.LENGTH_SHORT).show();
                                 break;
                             default:
                                 break;
@@ -280,6 +301,30 @@ public class LiveRoomView extends ConstraintLayout {
                 callback.onExitClick();
             }
         });
+
+        spinKitView = findViewById(R.id.loadingView);
+        errorView = findViewById(R.id.errorView);
+    }
+
+    private ErrorView errorView;
+    private SpinKitView spinKitView;
+
+    private void enableLoadingView(boolean enable) {
+        /*int visible = spinKitView.getVisibility();
+        if (enable) {
+            if (visible == INVISIBLE) {
+                spinKitView.setVisibility(VISIBLE);
+            }
+        } else {
+            if (visible == VISIBLE) {
+                spinKitView.setVisibility(INVISIBLE);
+            }
+        }*/
+        if(enable){
+            spinKitView.setVisibility(VISIBLE);
+        }else {
+            spinKitView.setVisibility(INVISIBLE);
+        }
     }
 
     public void setLiveRoomActionCallback(LiveRoomActionCallback callback) {

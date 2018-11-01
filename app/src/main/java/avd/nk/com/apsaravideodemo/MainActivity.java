@@ -22,8 +22,8 @@ public class MainActivity extends AppCompatActivity {
 
     //private String pullPath = "http://player.alicdn.com/video/aliyunmedia.mp4";
     //private String pullPath = "http://files.puxiansheng.net/record/study/video/2018-10-01/c32c580794bec2221e1922a244c47542.mp4";
-    private String pullPath = "rtmp://live.puxiansheng.net/ceshi/5?auth_key=1540976383-0-0-6965b01147ca6ca096d301ab689e1736";
-    private String pushPath = "rtmp://tl.puxiansheng.net/ceshi/5?auth_key=1540976383-0-0-b5697328dbef690be772968289eb63db";
+    private String pullPath = "rtmp://live.puxiansheng.net/ceshi/5?auth_key=1541065947-0-0-6f68d08ab3a2815935817ed21f6fbd99";
+    private String pushPath = "rtmp://tl.puxiansheng.net/ceshi/5?auth_key=1541065947-0-0-966a22ea89e0131159a0e3d27925d44f";
 
     private EditText inputPullUrl;
     private EditText inputPushUrl;
